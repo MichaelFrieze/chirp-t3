@@ -10,7 +10,6 @@ import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { api, type RouterOutputs } from "~/utils/api";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import Link from "next/link";
 
 dayjs.extend(relativeTime);
 
@@ -96,14 +95,10 @@ const PostView = (props: PostWithUser) => {
       />
       <div className="flex flex-col">
         <div className="flex whitespace-pre text-slate-300">
-          <Link href={`/@${author.username}`}>
-            <span>{`@${author.username}`}</span>
-          </Link>
-          <Link href={`/post/${post.id}`}>
-            <span className="font-thin">{` · ${dayjs(
-              post.createdAt
-            ).fromNow()}`}</span>
-          </Link>
+          <span>{`@${author.username}`}</span>
+          <span className="font-thin">{` · ${dayjs(
+            post.createdAt
+          ).fromNow()}`}</span>
         </div>
         <span className="text-2xl">{post.content}</span>
       </div>
@@ -127,7 +122,7 @@ const Feed = () => {
   );
 };
 
-const Home: NextPage = () => {
+const SinglePostPage: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
   // Start fetching asap
@@ -145,21 +140,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen justify-center">
-        <div className="h-full w-full border-x border-slate-400 md:max-w-2xl">
-          <div className="flex border-b border-slate-400 p-4">
-            {!isSignedIn && (
-              <div className="flex justify-center">
-                <SignInButton />
-              </div>
-            )}
-            {isSignedIn && <CreatePostWizard />}
-          </div>
-
-          <Feed />
-        </div>
+        <div>Post View</div>
       </main>
     </>
   );
 };
 
-export default Home;
+export default SinglePostPage;
